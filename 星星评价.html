@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			dt{
+				font-size: 16px;
+				color: #333;
+				display: inline-block;
+				float: left;
+				margin-top: 5px;
+			}
+			dd{
+				width: 22px;
+				height: 24px;
+				float: left;
+				background: url(img/xing.png) no-repeat;
+				display: inline-block;
+			}
+			span{
+				margin-top: 5px;
+				display: inline-block;
+			}
+
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li><a href="javscript:;">php</a></li>
+		</ul>
+		<div class="box">
+			<dl>
+				<dt>总体评价</dt>
+				<dd></dd>
+				<dd></dd>
+				<dd></dd>
+				<dd></dd>
+				<dd></dd>
+			</dl>
+			<span>你还没有做出评价哦！</span>
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+			var odd=document.getElementsByTagName('dd');
+			var oddd=document.querySelectorAll('dd');
+			var ospan=document.getElementsByTagName('span')[0];
+			var ospans=document.querySelector('span');
+			var text=['很差','较差','一般','良好','优秀']
+			var cn=-1;
+			for(var i=0;i<oddd.length;i++){
+				//alert(1)
+				oddd[i].index=i+1;
+				oddd[i].onmouseover=function(){
+					//alert(i)
+					
+					for(var i=0;i<oddd.length;i++){
+						oddd[i].style.backgroundImage='url(img/xing.png)';
+					}
+					
+					for(var i=0;i<this.index;i++){
+						oddd[i].style.backgroundImage='url(img/xing1.png)';
+						if(this.index>2){
+							oddd[i].style.backgroundImage='url(img/xing2.png)';
+						}
+					}
+					
+					ospans.innerHTML=text[this.index-1]
+				}
+				
+				oddd[i].onmouseout=function(){
+					for(var i=0;i<oddd.length;i++){
+						oddd[i].style.backgroundImage='url(img/xing.png)';
+					}
+					
+						for(var i=0;i<=cn;i++){
+							oddd[i].style.background='url(img/xing1.png)';
+							if(cn>1){
+								//这个条件成立，说明现在鼠标在第二个星之后
+								oddd[i].style.background='url(img/xing2.png)';
+							}
+						}
+						
+						if(cn<0){
+							ospans.innerHTML='还没有评分哦!'
+						}else{
+							ospans.innerHTML=text[cn];
+						}
+						
+					
+				}
+				console.log(oddd.length)
+					oddd[i].onclick=function(){
+						cn=this.index-1;	//点击的时候把点击的那个索引值赋给cn
+					};
+				
+			}
+		}
+	</script>
+</html>

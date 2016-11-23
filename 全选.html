@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			ul,li{list-style: none;}
+			a{text-decoration: none;}
+			.suc li{line-height: 26px;padding-left: 5px;font-size: 12px;width: 300px;}
+
+			.suc li:last-child{background: #ccc;}
+
+			input{vertical-align: middle;margin-right: 5px;}
+			li a{color: #333;}
+			li a{border: 1px solid #333;width: 65px;height: 18px;display: inline-block;margin-left: 8px;margin-top: 4px;
+					line-height: 18px;text-align: center;border-radius: 5px;}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<ul class="suc">
+				<li><input type="checkbox" value="" name="" id="mp3"><label for="mp3">私奔</label></li>
+				<li><input type="checkbox" value="" id="mp3"><label for="mp3">北京</label></li>
+				<li><input type="checkbox" value="" id="mp3"><label for="mp3">飞得更高</label></li>
+				<li><input type="checkbox" value="" id="mp3"><label for="mp3">花火</label></li>
+				<li><input type="checkbox" value="" id="mp3"><label for="mp3">回来</label></li>
+				<li><input type="checkbox" value="" id="mp3"><label for="mp3">一个人的北京</label></li>
+				<li><input type="checkbox" value="" id="all"><label for="mp3">全选</label><a href="javascript:;">收藏</a><a href="javascript:;">添加</a><a href="javascript:;">删除</a></li>
+			</ul>
+			
+		</div>
+	</body>
+	<script>
+		window.onload=function(){
+			var all=document.getElementById("all");
+			var oInput=document.getElementsByTagName("input");
+			var oLi=document.getElementsByTagName("li");
+			var onoff=true;
+			var oA=document.getElementsByTagName("a");
+			var checkinputNum=0;
+			var arrcolor=["#fff","#ccc"]
+//			all.onclick=function(){
+//				if(onoff){
+//					for(var i=0;i<oInput.length;i++){
+//					oInput[i].checked=true;
+//					
+//					onoff=false;
+//					}
+//				}else{
+//					for(var i=0;i<oInput.length;i++){
+//					oInput[i].checked=false;
+//					
+//					onoff=true;
+//					}
+//				}
+//			};
+		//遍历a
+			selectA();
+			function selectA(){
+				for(var i=0;i<oA.length;i++){
+					if(checkinputNum>0){
+						oA[i].className="";
+						
+					}else{
+						oA[i].className="disabled";
+					}
+				}
+			};
+			console.log(selectA())
+		//遍历li
+		for(var i=0;i<oLi.length;i++){
+			oLi[i].index=i;
+			//隔行变色
+			oLi[i].style.backgroundColor=arrcolor[i%arrcolor.length];
+			oLi[i].onmouseover=function(){
+				this.style.backgroundColor="#eee";
+				
+			};
+			oLi[i].onmouseout=function(){
+				if(!oInput[this.index].checked){
+					this.style.backgroundColor=arrcolor[this.index%arrcolor.length];
+				};
+			}
+			//点击
+			oInput[i].onclick=function(){
+				if(this.checked){
+					this.style.backgroundColor="#eee";
+					checkinputNum++;
+					//alert(checkinputNum)
+				}else{
+					checkinputNum--;
+				}
+				selectA();
+				if(checkinputNum==oInput.length-1){
+					oInput[oInput.length-1].checked=true;
+					console.log(oInput.length-1);
+				}else{
+					oInput[oInput.length-1].checked=false;
+				}
+			}
+		//全选	
+			oInput[oInput.length-1].onclick=function(){
+				for(var i=0;i<oLi.length;i++){
+					if(this.checked){
+						oInput[i].checked=true;
+						oLi[i].style.backgroundColor="#eee";	
+						checkinputNum=oInput.length-1;
+					}else{
+						oInput[i].checked=false;
+						oLi[i].style.backgroundColor=arrcolor[i%arrcolor.length];
+						checkinputNum=0;
+					}
+
+				};
+				selectA();
+			};
+		}
+		
+		
+		
+			
+		}
+	</script>
+</html>

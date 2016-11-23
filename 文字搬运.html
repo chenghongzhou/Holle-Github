@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div,p,a,ul,li,span{margin: 0;padding: 0;}
+			ul,li{list-style: none;}
+			a{text-decoration: none;}
+			.left{float: left;width: 300px;height: 150px;padding: 20px;border: 1px solid #333;color: #000;position: relative;}
+			.center{float: left;margin: 80px 10px;}
+			.center a{display: block;background: pink;width: 50px;height: 20;line-height: 20px;text-align: center;margin-top: 10px;}
+			.right{float: left;width: 300px;height: 150px;padding: 20px;border: 1px solid #333;color: #000;position: relative;}
+			span{width: 80px;height: 20px;background: pink;line-height: 20px;text-align: center;display: block;position: absolute;left: 130px;bottom: 10px;}
+			ul li{width: 8px;height: 8px;background: #333;border-radius: 50%;float: left;margin-right: 3px;}
+			ul{margin-top: 10px;}
+		</style>
+	</head>
+	<body>
+		<div class="left" id="left">
+			<p class="lf">拍碎双玉斗，慷慨一何多。满腔都是血泪，无处着悲歌。三百年来王气，满目山河依旧，人事竟如何？百户尚牛酒，四塞已干戈。千金剑，万言策，两蹉跎。醉中呵壁自语，醒后一滂沱。不恨年华去也，只恐少年心事，强半为销磨。愿替众生病，稽首礼维摩。</p>
+			<span></span>
+		</div>
+		<div class="center" id="center">
+			<a href="javascript:;" id="gor">→</a>
+			<a href="javascript:;" id="gol">←</a>
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<div class="right" id="right">
+			<p></p>
+			<span></span>
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oGor=document.getElementById("gor");
+			var oGol=document.getElementById("gol");
+			var oLeft=document.getElementById("left");
+			var oRight=document.getElementById("right");
+			var ps=document.getElementsByTagName("p");
+			var oSpan=document.getElementsByTagName("span");
+			var oLi=document.getElementsByTagName("li");
+			var timer="";
+			
+			oGor.onclick=function(){
+				fn(0,1);
+			};
+			oGol.onclick=function(){
+				fn(1,0)
+			};	
+			
+			function fn(n,n1){
+				var len=ps[n].innerHTML.length;
+				var num=0;
+				if(len<=0){
+					alert("没有文字可以搬运");
+					return;
+				}
+				timer=setInterval(function(){
+					
+					if(ps[n].innerHTML.length<=0){//不能直接len
+						clearInterval(timer);
+					}
+					ps[n1].innerHTML+=ps[n].innerHTML.charAt();
+					ps[n].innerHTML=ps[n].innerHTML.substring(1);
+					oSpan[n].innerHTML=ps[n].innerHTML.length +'/'+ len;
+					oSpan[n1].innerHTML=ps[n1].innerHTML.length +'/'+ len;
+					//花灯
+					oLi[num].style.backgroundColor="";
+					num++;
+					num%=oLi.length;
+					oLi[num].style.backgroundColor="red";
+				},30)				
+			}
+		}
+	</script>
+</html>

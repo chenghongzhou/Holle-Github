@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		#box{
+			width: 50px;
+			height: 50px;
+			background: #C7CBCA;
+			cursor: move;
+			position: absolute;	
+		}
+	</style>
+	<body>
+		<div id="box"></div>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oBox=document.getElementById("box");
+			
+			oBox.onmousedown=function(e){
+				var event=e||window.event;
+				var oX=event.clientX-this.offsetLeft;
+				var oY=event.clientY-this.offsetTop;
+				
+				//alert(1)
+				document.onmousemove=function(e){
+					var event=e||window.event;
+					
+					var moveX=event.clientX-oX;
+					var moveY=event.clientY-oY;
+						
+					if(moveX<=0){
+						moveX=0;
+					}
+					if(moveY<=0){
+						moveY=0;
+					};
+					
+					if(moveX>=document.documentElement.clientWidth-oBox.offsetWidth){
+						moveX=document.documentElement.clientWidth-oBox.offsetWidth;
+					}
+					if(moveY>=document.documentElement.clientHeight-oBox.offsetHeight){
+						moveY=document.documentElement.clientHeight-oBox.offsetHeight;
+					}
+					
+					oBox.style.left=moveX+"px";
+					oBox.style.top=moveY+"px";
+					console.log(moveX)
+				};
+				oBox.onmouseup=function(){
+					document.onmousemove="null";
+					oBox.onmouseup="null";
+				}				
+			}
+		}
+	</script>
+	<script type="text/javascript">
+		//键盘移动
+		window.onload=function(){
+			var oBox=document.getElementById("box");
+			
+			var key={
+				37:false,
+				38:false,
+				39:false,
+				40:false
+			};
+			
+			document.onkeydown=function(ev){
+				key[ev.keyCode]=true;
+				console.log(key)
+			}
+			document.onkeyup=function(ev){
+				key[ev.keyCode]=false;
+			}
+			
+			var timer=setInterval(function(){
+				if(key[37]){
+					oBox.style.left=oBox.offsetLeft-5+"px";
+				}
+				if(key[38]){
+					oBox.style.top=oBox.offsetTop-5+"px";
+				}
+				if(key[39]){
+					oBox.style.left=oBox.offsetLeft+5+"px";
+				}
+				if(key[40]){
+					oBox.style.top=oBox.offsetTop+5+"px";
+				}
+			},16)
+		}
+	</script>
+</html>

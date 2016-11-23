@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			ul,li{list-style: none;}
+			.list{background: #6FF;width: 240px;border: 1px solid #333;}
+			
+			.lis>ul{display: none;}
+			.lis>ul.active{display: block;}
+			.lis>ul li:hover{background: red;}
+			
+			.tab_top{width: 300px;}
+			.tab_top ul{background: #ccc;width: 300px;height: 50px;}
+			.tab_top ul li{float: left;width: 100px;height: 50px;text-align: center;line-height: 50px;}
+			.tab_li{display: none;width: 300px;height: 100px;text-align: center;line-height: 100px;}
+			.curr{display: block;}
+			.col{background: greenyellow;}
+			input{width: 20px;height: 20px;margin-left: 5px;}
+			
+			#demo { 
+				background: #FFF; 
+				overflow:hidden; 
+				border: 1px dashed #CCC; 
+				width: 364px; 
+				height: 25px;
+				
+			} 
+			#demo1 li{ 
+				border: 3px solid #F2F2F2; 
+				position: relative;
+				display: block;
+				float: left;
+			} 
+			#demo1 { 
+				position: relative;
+			} 			
+		</style>
+	</head>
+	<body>
+		<ul class="list" id="list">
+			<li class="lis">
+				<h2>我的好友</h2>
+				<ul>
+					<li>张三</li>
+					<li>李四</li>
+					<li>王武</li>
+					<li>离奇</li>
+				</ul>
+			</li>
+			<li class="lis">
+				<h2>企业好友</h2>
+				<ul>
+					<li>李四</li>
+					<li>王武</li>
+					<li>离奇</li>
+				</ul>				
+			</li>
+			<li class="lis">
+				<h2>黑名单</h2>
+				<ul>
+					<li>张三</li>
+					<li>离奇</li>
+				</ul>				
+			</li>			
+		</ul>
+		
+		<div class="tab_top">
+			<ul>
+				<li class="col">1</li>
+				<li>2</li>
+				<li>3</li>
+			</ul>
+			<div class="tab_li curr">1</div>
+			<div class="tab_li">2</div>
+			<div class="tab_li">3</div>
+		</div>
+	<div>
+	<input type="button" name="" id="" value="-" /><span id="nowsprice">0</span><input type="button" value="+">单价:<span id="onesprice">12.5</span>元  小计:<font id="suoprice">0</font>元
+	</div>
+
+	<div id="demo"> 
+			<ul id="demo1"> 
+				<li>aaaaaa</li> 
+				<li>bbbbbb</li> 
+				<li>cccccc</li> 
+				<li>dddddd</li> 
+				<li>eeeeee</li> 
+				<li>ffffff</li> 
+			</ul> 
+	</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oList=document.getElementById('list');
+			var oH=oList.getElementsByTagName('h2');
+			var oUl=oList.getElementsByTagName('ul');
+			var oLi=oList.getElementsByTagName('li');
+			//var onoff='ture';
+			for (var i=0;i<oH.length;i++) {
+				oH[i].index=i;
+				oH[i].onclick=function(){
+					for (var i=0;i<oH.length;i++ ) {
+						if(i!=this.index){
+							oUl[i].style.display='none';
+							oH[i].style.background='#6FF';
+						}
+					}
+					if(oUl[this.index].style.display!='block'){
+						oUl[this.index].style.display='block';
+						oH[this.index].style.background='greenyellow';
+						oUl[this.index].style.background='#ccc';
+					//	onoff='false';
+					}else{
+						oUl[this.index].style.display='none';
+						oH[this.index].style.background='#6FF';
+					//	onoff='ture';
+					}								
+				};
+			}
+			
+			var oSpan=document.getElementById('onesprice');
+			var oFont=document.getElementById('suoprice');
+			var oBtn=document.getElementsByTagName('input');
+			var oNow=document.getElementById('nowsprice')
+			var n1=Number(oNow.innerHTML);
+			var n2=parseFloat(oSpan.innerHTML);
+			
+			oBtn[1].onclick=function(){
+				n1++;
+				oNow.innerHTML=n1;
+				oFont.innerHTML=n1*n2;
+			};
+			oBtn[0].onclick=function(){
+				n1--;
+				if(n1<0){
+					n1=0;
+				}
+				oNow.innerHTML=n1;
+				oFont.innerHTML=n1*n2;
+			};	
+			//无缝滚动
+			var speed=2; 
+			var tab=document.getElementById("demo"); 
+			var tab1=document.getElementById("demo1"); 
+			var oA=tab1.getElementsByTagName('li');
+			
+			tab1.innerHTML+=tab1.innerHTML;
+			tab1.style.width=oA[0].offsetWidth*oA.length+'px';
+			console.log(tab1.offsetWidth);
+			console.log(oA[0].innerHTML)
+			setInterval(function(){
+				if(tab1.offsetLeft<=-tab1.offsetWidth/2){
+					tab1.style.left='0';
+				}
+				tab1.style.left=tab1.offsetLeft-speed+'px'
+			},30)
+		};
+		
+		$(function(){
+			$('.tab_top ul li').mouseover(function(){
+				 var _this=$(this).index();
+				$(this).addClass('col').siblings().removeClass('col');
+				$('.tab_li').eq(_this).addClass('curr').siblings().removeClass('curr');
+			})
+		});
+	
+	
+	</script>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<style>
+			.div1{width: 100px;height: 80px;border: 1px solid #333;}
+			.div2{transition: all 0.2 ease 0s;transform: scale(1);background: #000;}
+			.a1{width:100px; height:100px; margin:200px auto;}
+			.abc{width:100px;height:100px;background:#f00; position:relative; transition:.5s}
+			.abc:hover{width:120px; height:120px; margin:-10px 0 0 -10px}
+		</style>
+	</head>
+	<body>
+		<div class="div1">
+			<a href="#">
+				<div class="div2"></div>
+			</a>
+		</div>
+		<div class="a1">
+			<div class="abc"></div>
+		</div>
+	</body>
+	<script>
+		$(".div1").on('mouseenter',function(e){
+			var _this=$(this);
+			//_this.find(".div2").css({left:(e.offsetX + 'px')+'px',top:e.offsetY+'px'});
+			setTimeout(function(){_this.find('.div2').css({transition:'all .2s',transform:'scale(1)',left:0,top:0,width:'100%',height:'100%'});},10);
+		})
+	</script>
+</html>

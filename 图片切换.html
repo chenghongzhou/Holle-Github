@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			.box{width: 300px;position: relative;margin: 30px auto;text-align: center;color: #C7CBCA;}
+			img{width: 300px;height: 300px;}
+			.top{margin-bottom: 5px;}
+			#num{width: 300px;height: 30px;line-height: 30px;text-align: center;font-size: 16px;color: #000;
+					position: absolute;top:313px ;left: 0px;background: white;opacity: 0.5;filter: Alpha(opacity=50);-moz-opacity: 0.5;}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<form class="top">
+				<input type="button" value="顺序播放" id="order">
+				<input type="button" value="循环播放" id="loop">
+			</form>
+			<p>图片播放</p>
+			<img src="img/1a.jpg" id="pic">
+			<p id="num">1/5</p>
+			<form class="tig">
+				<input type="button" value="上一张" id="forwrod">
+				<input type="button" value="下一张" id="next">
+			</form>
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oPic=document.getElementById("pic");
+			var oFor=document.getElementById("forwrod");
+			var oNext=document.getElementById("next");
+			var oNum=document.getElementById("num");
+			var num=0;
+			var arr=["img/1a.jpg","img/2.jpg","img/3.jpg","img/4.jpg","img/5.jpg"];
+					oNext.onclick=function(){
+						num++;	
+						if(num>=arr.length){
+							num=0;
+						}
+						oPic.src=arr[num];
+						oNum.innerHTML=num+1 +"/"+ arr.length;
+					}
+
+		}
+	</script>
+</html>

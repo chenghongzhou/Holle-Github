@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="UTF-8">
+		<title></title>
+	<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		body{text-align:center;}
+		h1{margin:0 auto}
+		input{width:150px;}
+		table{text-align:center;line-height:30px;margin-top:10px;}
+		.centerDIv{margin:0 auto;width:600px;}
+		.titleTd{font-size:20px;width:100px;height:30px;text-align:left;}
+		.inputTd{font-size:20px;width:200px;height:30px;text-align:center;}
+		.showTd{font-size:12px;width:250px;height:30px;text-align:left;}
+
+	</style>
+</head>
+<body>
+<h1>欢迎注册</h1>
+<div class="centerDIv">
+	<form action="zhuce.php" method="post">
+		<table>
+			<tr>
+				<td class="titleTd">
+					用户名
+				</td>
+				<td class="inputTd">
+					<input type="text" id="username" name="username"/>
+				</td>
+				<td class="showTd" id="usernameTd">
+					<span id="backdata">英文(大小写)、数字、标点符号、中文</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="titleTd">
+					密码
+				</td>
+				<td class="inputTd">
+					<input type="password" id="password" name="password"/>
+				</td>
+				<td class="showTd" id="passwordTd">
+					英文(大小写)、数字、标点符号
+				</td>
+			</tr>
+			<tr>
+				<td class="titleTd">
+					确认密码
+				</td>
+				<td class="inputTd">
+				<input type="password" id="rePassword"/>
+					</td>
+				<td class="showTd" id="rePasswordTd">
+					英文(大小写)、数字、标点符号
+				</td>
+			</tr>
+			<tr>
+				<td class="titleTd">
+					邮箱
+				</td>
+				<td class="inputTd">
+					<input type="text" id="email" name="emian"/>
+				</td>
+				<td class="showTd" id="emialTd">
+					支持..@...com的格式
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+</body>
+<script type="text/javascript">
+	$(function() {
+		$("#username").blur(function() {
+			if ($("#username").val() == "") {
+				$("#usernameTd").html("<span style='color:red;'>X 请输入用户名</span>");
+				} else if ($("#username").val().length < 6) {
+					$("#usernameTd").html("<span style=*color:red;*>X 用户名太短，请重新输入</span>");
+		} else {
+		var params = $("input").serialize();
+		var url = "isHavaUser.php";
+			$.ajax({
+				type: "post",
+				url: url,
+				dataType: "json",
+				data: params,
+				success: function(msg) {
+					var number = msg;
+						if (number == 0) {
+						$("#usernameTd").html("<span style=*color:green;*>√ 该用户名可以使用</span>");
+						} else {
+						$("#usernameTd").html("<span style=*color:red;*>X 该用户名已被使用</span>");
+						}
+				}
+			});
+		}
+		})
+	});
+	$(function() {
+		$("#password").blur(function() {
+				if ($("#password").val() == "") {
+					$("#passwordTd").html("<span style=*color:red;*>X 请输入密码</span>");
+				} else if ($("#password").val().length < 6) {
+						$("#passwordTd").html("<span style=*color:red;*>X 密码太短，请重新输入</span>");
+						$("#password").val("");
+			} else {
+				$("#passwordTd").html("<span style=*color:green;*>√ </span>");
+			}
+			});
+	});
+		$(function() {
+			$("#rePassword").blur(function() {
+				if ($("#rePassword").val() == "") {
+					$("#rePasswordTd").html("<span style=*color:red;*>X 请输入确认密码</span>");
+				} else if ($("#password").val() != $("#rePassword").val()) {
+					$("#rePasswordTd").html("<span style=*color:red;*>X 两次输入密码不一致，请重新输入</span>");
+					$("#rePassword").val("");
+				} else {
+				$("#rePasswordTd").html("<span style=*color:green;*>√ </span>");
+				}
+			});
+	});
+		$(function() {
+			$("#email").blur(function() {
+				var search_str = /^[\w\-\.]+@[\w\-\.]+(\.\w+)+$/;
+				if ($("#email").val() == "") {
+					$("#emialTd").html("<span style=*color:red;*>X 请输入邮箱地址</span>");
+				} else if (!search_str.test($("#email").val())) {
+					$("#emialTd").html("<span style=*color:red;*>X 邮箱地址格式不正确</span>");
+				} else {
+					$("#emialTd").html("<span style=*color:green;*>√ </span>");
+			}
+	});
+});	
+//<?php
+////公共属性
+//$mysql_server_name = "127.0.0.1";
+//$mysql_username = "root"; 
+//$mysql_password = "root"; 
+//$mysql_database = "password"; 
+//$conn=mysql_connect($mysql_server_name, $mysql_username,$mysql_password);
+//mysql_SELECT_db($mysql_database, $conn);
+////获取表单数据
+//$username = $_POST["username"];
+////查询
+//$sql = "SELECT COUNT(*) FROM user_login WHERE login_name = *".$username."*";
+//$result = mysql_query($sql,$conn);
+//mysql_data_seek($result,0);
+//while ($row = mysql_fetch_row($result)) {
+//$number = $row[0];
+//}
+//echo json_encode($number);
+//?>	
+</script>
+</html>

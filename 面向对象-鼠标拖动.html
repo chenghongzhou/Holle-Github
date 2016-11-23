@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>面向对象-鼠标拖动</title>
+		<style type="text/css">
+			#div1{width: 200px;height: 200px;background: #333333;}
+			#div2{width: 100px;height: 100px;background: green;}
+		</style>
+	</head>
+	<body>
+		<div id="div1"></div>
+		<div id="div2"></div>
+	</body>
+	<script type="text/javascript">
+		function Move(id){
+			this.div=document.getElementById(id);
+			if(this.div){
+				this.div.style.cursor = 'move';
+				this.div.style.position = 'absolute';
+			}
+			this.div.goX = 0;//开始位置
+			this.div.goY = 0;
+			var _this = this;
+			this.div.onmousedown=function(e){
+				_this.getdistance(e);
+				document.onmouseover=function(e){
+					_this.setdistance(e);
+				}
+				_this.div.onmouseup=function(){
+					_this.clearup();
+				}
+			}
+		};
+		Move.prototype.getdistance=function(e){
+			var event=e || window.event;
+			this.goX = event.clientX - this.div.offsetLeft;
+			this.goY = event.clientY - this.div.offsetTop;	
+		}
+		Move.prototype.setdistance=function(e){
+			var event = e || window.event;
+			var setX = event.clientX - this.goX;
+			var setY = event.clientY - this.goY;
+			if(setX <= 0){
+				setX = 0;
+			}else if(setX >= document.documentElement.clientWidth - this.div.offsetWidth){
+				setX = document.documentElement.clientWidth - this.div.offsetWidth;
+			}
+			if(setY <= 0){
+				setY = 0;
+			}else if(setY >= document.documentElement.clientHeight - this.div.offsetHeight){
+				setY = document.documentElement.clientHeight - this.div.offsetHeight;
+			}
+			this.div.style.left = setX + 'px';
+			this.div.style.top = setY + 'px';
+		}
+		Move.prototype.clearup=function(){
+			document.onmouseover = 'null';
+			this.div.onmouseup = 'null';
+			
+		};
+		window.onload=function(){
+			new Move('div1');
+			new Move('div2');
+		};
+	</script>
+</html>

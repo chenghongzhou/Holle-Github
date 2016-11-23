@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div,p,a,img,font{margin: 0;padding: 0;}
+			.box{width: 800px;height: 500px;margin: 50px auto;background: url(img/bg.jpg) no-repeat;
+					padding-top: 40px;padding-left: 30px;}
+			.first{margin-right: 20px;float: left;}
+			.scend{float: left;}
+			.cur{background: #fff;padding: 20px;}
+			#f_pic{width: 400px;height: 300px;}
+			#s_pic{width: 220px;height: 300px;}
+			p{text-align: center;margin-top:5px ;color: #999999;}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<input type="button" value="上一组" id="forwrod"/>
+			<input type="button" value="下一组" id="next"/>
+			<div class="ubox">
+				<div class="first cur">
+					<img src="img/img1/belle.jpg" id="f_pic">
+					<p id="num">第一组 1/5相片</p>
+					<font id="f_num">1/5</font>
+				</div>
+				<div class="scend cur">
+					<img src="img/img2/load.jpg" id="s_pic">
+					<p id="num_s">第二组 1/4相片</p>
+					<font id="s_num">1/4</font>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oFor=document.getElementById("forwrod");
+			var oNext=document.getElementById("next");
+			var oFp=document.getElementById("f_pic");
+			var oSp=document.getElementById("s_pic");
+			var oNum=document.getElementById("num");
+			var oFn=document.getElementById("f_num");
+			var oNs=document.getElementById("num_s");
+			var oSn=document.getElementById("s_num");
+			var arrf=["img/img1/belle.jpg","img/img1/city.jpg","img/img1/flower.jpg","img/img1/rouse.jpg","img/img1/smail.jpg"];
+			var arrs=["img/img2/load.jpg","img/img2/pencil.jpg","img/img2/watch.jpg","img/img2/water.jpg"];
+			var num=0;
+			var s=0;
+			
+			oFp.onclick=function(){
+				num++;
+				if(num>=arrf.length){
+					num=0;
+				}
+				this.src=arrf[num];
+				oNum.innerHTML='第一组'+ (num+1) +"/"+ arrf.length +'相片';
+				oFn.innerHTML=num+1 +"/"+ arrf.length;
+			};
+			
+			oSp.onclick=function(){
+				num++;
+				if(num>=arrs.length){
+					num=0;	
+				}
+				this.src=arrs[num];
+				oNs.innerHTML='第二组'+ (num+1) +'/'+ arrs.length;
+				oSn.innerHTML=num+1 +'/'+ arrs.length;
+			};
+			
+			oFor.onclick=function(){
+				num++;
+				if(num>=arrf.length){
+					num=0;
+				}
+				oFp.src=arrf[num];
+				oNum.innerHTML='第一组'+ (num+1) +"/"+ arrf.length +'相片';
+				oFn.innerHTML=num+1 +"/"+ arrf.length;	
+				
+				s++;
+				if(s>=arrs.length){
+					s=0;	
+				}
+				oSp.src=arrs[s];
+				oNs.innerHTML='第二组'+ (s+1) +'/'+ arrs.length;
+				oSn.innerHTML=s+1 +'/'+ arrs.length;				
+				
+			}
+		};
+	</script>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			#small-box{width: 400px;height: 255px;position: relative;margin: 50px;display: block;vertical-align: middle;border:1px solid #ccc;}
+			#float-box{width: 100px;height: 100px;position: absolute;background: #ffffcc;filter: alpha(opactiy=50);opacity: 0.5;border: 1px solid #ccc;z-index: 9;display: none;}
+			img{position: absolute;}
+			#big-box{width: 460px;height: 410px;border: 1px solid #ccc;position: absolute;top: 10px;left: 460px;display: none;overflow: hidden;}
+			
+		</style>
+	</head>
+	
+	<body>
+		<div id="small-box">
+			<div id="float-box"></div>
+				<img src="img/2.jpg" />
+		</div>
+		<div id="big-box">
+			<img src="img/2.jpg" id="bigimage">
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oSmall=document.getElementById('small-box');
+			var oFloat=document.getElementById('float-box');
+			var oBig=document.getElementById('big-box');
+			var bigImage=oBig.getElementsByTagName('img')[0];
+			//鼠标一上去显示
+//			oSmall.onmouseover = function(){
+//				oFloat.style.display = 'block';
+//				oBig.style.display = 'block';
+//			}
+			//鼠标在对象上的移动触发事件
+			oSmall.onmousemove=function(e){
+				oFloat.style.display = 'block';
+				oBig.style.display = 'block';
+				var event=e || window.event;//e是参数  window.event代表事件的状态  例如触发event事件的元素 鼠标的位置及状态，按下的键等.event对象只有在事件触发时有效
+				var left=event.clientX-oSmall.offsetLeft-oFloat.offsetWidth/2;
+				var top=event.clientY-oSmall.offsetTop-oFloat.offsetHeight/2;
+				if(left<0){
+					left=0;
+				}else if(left>(oSmall.offsetWidth-oFloat.offsetWidth)){
+					left=oSmall.offsetWidth-oFloat.offsetWidth;
+				}				
+				if(top<0){
+					top=0;
+				}else if(top>(oSmall.offsetHeight-oFloat.offsetHeight)){
+					top=oSmall.offsetHeight-oFloat.offsetHeight;
+				}
+				console.log(top);
+				console.log(left);
+				//放大镜移动距离
+				oFloat.style.left=left + 'px';
+				oFloat.style.top=top + 'px';
+				//根据比例计算放大镜放大后的图像的移动的位移（负数）
+				bigImage.style.left = -(left*bigImage.offsetWidth/oSmall.offsetWidth)+'px';
+				bigImage.style.top=-(top*bigImage.offsetHeight/oSmall.offsetHeight)+'px';
+			}
+			//鼠标移开消失
+			oSmall.onmouseout = function(){
+				oFloat.style.display='none';
+				oBig.style.display='none';
+			}
+			
+		};
+	</script>
+</html>

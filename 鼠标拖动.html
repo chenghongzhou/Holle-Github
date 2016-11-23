@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box1{width: 200px;height: 100px;background: #333333;position: absolute;cursor: move;z-index: 3;}
+			#box2{width: 300px;height: 150px;background: green;position: absolute;cursor: move;}
+		</style>
+	</head>
+	<body>
+		<div id="box1"></div>
+		<div id="box2"></div>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oBox1=document.getElementById('box1');
+			var oBox2=document.getElementById('box2');
+			//鼠标按下
+			oBox1.onmousedown=function(e){
+				var event = e || window.event;
+				//获取此时坐标
+				var downX = event.clientX - oBox1.offsetLeft;
+				var downY = event.clientY - oBox1.offsetTop;
+				//鼠标拖动  添加拖动时间
+				document.onmousemove=function(e){
+					var event = e || window.event;
+					//获取此时的坐标
+					var moveX = event.clientX - downX;
+					var moveY = event.clientY - downY;
+					//设置鼠标拖动范围，
+					if(moveX <= 0){
+						moveX = 0;
+					}else if(moveX >= document.documentElement.clientWidth-oBox1.offsetWidth){
+						moveX = document.documentElement.clientWidth - oBox1.offsetWidth; 
+					}
+					if(moveY <= 0){
+						moveY = 0;
+					}else if(moveY >= document.documentElement.clientHeight-oBox1.offsetHeight){
+						moveY = document.documentElement.clientHeight-oBox1.offsetHeight;
+					}
+					//重新给div赋值
+					oBox1.style.top = moveY + 'px';
+					oBox1.style.left = moveX + 'px';
+					console.log(moveY)
+				}
+				//鼠标抬起
+				oBox1.onmouseup=function(){
+					document.onmousemove = 'null';
+					oBox1.onmouseup = 'null';
+				}
+			}
+
+		}
+	</script>
+</html>

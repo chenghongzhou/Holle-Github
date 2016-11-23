@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#nothing{
+				width: 500px;
+				height: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="file" id="file">
+		<p id="nothing"></p>
+	</body>
+	<script type="text/javascript">
+		
+		window.onload=function(){
+			var f=document.getElementById("file");
+			var p=document.getElementById("nothing");
+			
+			f.onchange=function(){
+				var file=this.files[0];
+				var fr=new FileReader();
+				console.log(file)
+				console.log(fr)
+				fr.onload=function(ev){
+					var result=ev.target.result;
+					img.src=result;
+					document.body.appendChild(img)
+					console.log(result)
+				}
+
+		//fr.readAsDataURL(file);把文件解析为base64格式的编码。
+		// fr.readAsText(file);解析文本
+				
+				fr.readAsArrayBuffer(file);
+
+			}
+		}
+	</script>
+</html>

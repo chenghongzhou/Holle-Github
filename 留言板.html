@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body,textarea,input,ul,li,a{
+				margin: 0;
+				padding: 0;
+			}
+			ul,li{
+				list-style: none;
+			}
+			textarea{
+				width: 200px;
+				height: 100px;
+				display: block;
+				line-height: 20px;
+				text-indent: 5px;
+			}
+			.show li{
+				
+				line-height: 20px;
+				text-indent: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<textarea name="txt"></textarea><input type="button" value="提交" name="btn">
+		<ul class="show" id="show">
+			
+		</ul>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oTxt=document.getElementsByTagName("textarea")[0];
+			var oInput=document.getElementsByTagName("input")[0];
+			var show=document.getElementById("show");
+			
+			oInput.onclick=function(){
+				show.innerHTML+= "<li>"+oTxt.value+"</li>";
+				oTxt.value="";
+			}
+		}
+	</script>
+</html>

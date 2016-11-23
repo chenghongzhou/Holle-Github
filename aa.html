@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<head runat="server">
+    <title></title>
+    <style type="text/css">
+        #div1
+        {
+            width: 245px;
+            height: 150px;
+            background: red;
+            margin: 250px;
+            margin-left: 500px;
+            position: absolute;
+            overflow: hidden;
+        }
+        #div1 ul li
+        {
+            float: left;
+            width: 44px;
+            height: 66px;
+            margin-top: 20px;
+            margin-right: 5px;
+            list-style: none;
+        }
+        #div1 ul
+        {
+            width: 250px;
+            position: absolute;
+            padding: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oul = document.getElementsByTagName('ul')[0];
+            var odiv = document.getElementById('div1');
+            var ali = document.getElementsByTagName('li');
+            oul.innerHTML = oul.innerHTML + oul.innerHTML;
+            oul.style.width = (ali[0].offsetWidth + 5) * ali.length + 'px';
+            function roll() {
+                if (oul.offsetLeft <= -oul.offsetWidth / 2) {
+                    oul.style.left = '0';
+                }
+                oul.style.left = oul.offsetLeft - 2 + 'px';
+            }
+            var timer = null;
+            timer = setInterval(roll, 30);
+            odiv.onmouseover = function () {
+                clearInterval(timer);
+            }
+            odiv.onmouseout = function () {
+                timer = setInterval(roll, 30);
+            }
+        };
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <ul>
+            <li>
+                <img src="../Images/Number1/0.jpg" /></li>
+            <li>
+                <img src="../Images/Number1/1.jpg" /></li>
+            <li>
+                <img src="../Images/Number1/2.jpg" /></li>
+            <li>
+                <img src="../Images/Number1/3.jpg" /></li>
+            <li>
+                <img src="../Images/Number1/4.jpg" /></li>
+        </ul>
+    </div>
+</body>

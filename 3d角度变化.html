@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#box{
+			width: 400px;
+			height: 300px;
+			margin:50px auto;
+			transform-style: preserve-3d;
+			perspective: 500px;
+		}
+		img{
+			/*position: absolute;
+			transform: rotateX(45deg);*/
+			transform-origin: center center -150px; 
+		}
+	</style>
+	<body>
+		<div id="box">
+			<img src="img/dog.png" width="400" height="300" alt="">
+		</div>
+	</body>
+	<script type="text/javascript">
+		document.addEventListener('mousemove',fnMove);
+		var oImg=document.getElementsByTagName("img")[0];
+		
+		function fnMove(ev){
+			var disX=ev.pageX;
+				//console.log(disX)
+			var scale = disX / document.documentElement.clientWidth;
+			//var disY=ev.pageY;
+			//var scalee=disY/document.documentElement.clientHeight;
+			oImg.style.transform="rotateY("+(60*scale-30)+"deg)";
+			//oImg.style.transform="rotateX("+(60*scalee-30)+"deg)";
+			console.log(scale)
+		}
+	</script>
+</html>

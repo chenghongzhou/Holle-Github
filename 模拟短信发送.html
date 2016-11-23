@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>模拟短信发送</title>
+		<style type="text/css">
+			div,input,img,i,ul,li,p{margin: 0;padding: 0;}
+			ul,li{list-style: none;}
+			.box{width: 236px;height: 476px;background: url(img/phone.jpg) no-repeat;margin: 0 auto;position: relative;}
+			.box-main{width: 188px;height: 333px;position: absolute;left: 25px;top: 71px;}
+			.content{width: 188px;height: 294px;border-bottom: 1px solid #c7cbca;}
+			.write{height: 33px;width: 100%;padding-top:5px ;}
+			#people{width: 24px; height: 24px;border: 1px solid #c7cbca;text-align: center;line-height: 24px;float: left;
+						margin: 0px 3px;}
+			#txt{width: 108px;height: 24px;vertical-align: middle;float: left;padding-left: 3px;}
+			#btn{float: right;border: 0;font-size: 16px;background-color: white;width: 32px;height: 24px;text-align: center;line-height: 24px;
+					margin-right: 3px;}
+			
+			.nan{}
+			.nan img{vertical-align: middle;float: left;}
+			.nan p{display: inline-block;word-break: break-all;margin-bottom: 5px;float: left;}
+			.clearf:after{clear: both;display: block;content: "";}
+			.wonan img{vertical-align: middle;float: right;}
+			.wonan p{display: inline-block;word-break: break-all;margin-bottom: 5px;float: right;}			
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="box-main">
+				<ul class="content" id="content">
+
+				</ul>
+				<div class="write">
+					<p id="people"><img src="img/1.png" id="pic"></p>
+					<input type="text" id="txt" value="">
+					<input type="button" value="发送" id="btn">
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oPo=document.getElementById("people");
+			var oPic=document.getElementById("pic");
+			var oTxt=document.getElementById("txt");
+			var oBtn=document.getElementById("btn");
+			var oCont=document.getElementById("content");
+			var onoff=true;
+			//点击切换图片
+			oPo.onclick=function(){
+				if(onoff){
+					oPic.src="img/2.png"
+					onoff=false;
+					
+				}else{
+					oPic.src="img/1.png"
+					onoff=true;
+				}
+			};
+			//发短信开始
+			oBtn.onclick = function(){
+				if(onoff){
+					oCont.innerHTML = "<li class='nan clearf'><img src='img/1.png'><p> : " + oTxt.value + "</p></li><br />"+oCont.innerHTML;
+					
+				}else{
+					oCont.innerHTML="<li class='wonan clearf'><img src='img/2.png'><p>  "+ oTxt.value + ":</p></li><br />"+oCont.innerHTML;
+				
+				}
+				oTxt.value="";
+			};
+		}
+	</script>
+</html>

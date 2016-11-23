@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body,ul,li,input{
+				margin: 0;
+				padding: 0;
+			}
+			li{
+				position: relative;
+				top: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<ul id="lis">
+				<li>aaa<input type="button" value="上移" name=""><input type="button" value="下移" name=""></li>
+				<li>bbb<input type="button" value="上移" name=""><input type="button" value="下移" name=""></li>
+				<li>ccc<input type="button" value="上移" name=""><input type="button" value="下移" name=""></li>
+				<li>ddd<input type="button" value="上移" name=""><input type="button" value="下移" name=""></li>
+			</ul>
+		</div>
+		 <div id='div1'></div>
+		<div id='div2'></div>
+		<div id='div3'></div>
+		<select name="">
+			<option value=""></option>
+		</select>
+	</body>
+	<script src="js/mTween.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oLis=document.getElementById("lis");
+			var oLi=oLis.getElementsByTagName("li");
+			var h=oLi[0].offsetHeight;
+			
+			for(var i=0;i<oLi.length;i++){
+				var up=oLi[i].children[0];
+				var down=oLi[i].children[1];
+				
+				up.onclick=function(){
+					var cur=this.parentNode;
+					var prve=cur.previousElementSibling;
+					if(!prve){
+						return;
+					}
+					mTween(cur,{top:-h},200,'linear');
+					mTween(prve,{top:h},200,'linear',function(){
+						oLis.insertBefore(cur,prve);
+							cur.style.top=0;
+							prve.style.top=0;
+					});
+				}
+				//下移
+				down.onclick=function(){
+					var cur=this.parentNode;
+					var next=cur.nextElementSibling;
+					if(!next){
+						return;
+					}
+					mTween(cur,{top:h},200,"linear");
+					mTween(next,{top:-h},200,"linear",function(){
+						oLis.insertBefore(next,cur);
+						cur.style.top=0;
+						next.style.top=0;
+					})
+				}
+			}
+			
+			var o = document.getElementById("div2").previousSibling;
+			var p = document.getElementById("div2").previousElementSibling;
+			console.log(o);
+			console.log(p);
+			
+		}
+	</script>
+</html>

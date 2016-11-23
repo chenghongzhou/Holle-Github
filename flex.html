@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="wap-font-scale" content="no">		
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			.flex_wrap{display: flex;display: -webkit-box;display: -moz-box;display: -ms-flexbox;flex-wrap: wrap;-webkit-flex-wrap: wrap;
+						-ms-flex-wrap: wrap;}
+			.flex_box{flex: 1;-webkit-flex: 1;-moz-box-flex: 1;-webkit-box-flex: 1;-ms-flex: 1; width:0;-webkit-flex-basis: 0;-ms-flex-preferred-size: 0;
+						flex-basis: 0;position: relative;width: 100%;}
+			.box:nth-child(2){flex: 0.5;-webkit-flex: 0.5;-webkit-box-flex: 0.5;}
+			.box{border: 1px solid #ccc;height: 100px;line-height: 100px;text-align: center;}
+			.pl{border: 1px solid #ccc;height: 30px;line-height: 30px;}
+			.to{height: 200px;border: 1px solid #008000;}
+		</style>
+	</head>
+	<body>
+		<div class="flex_wrap">
+			<div class="box flex_box">1</div>
+			<div class="box flex_box">2</div>
+			<div class="box flex_box">3</div>
+		</div>
+		<div class="to">
+			<p class="pl">1</p>
+			<p class="pl">2</p>
+			<p class="pl">3</p>
+		</div>
+			<span>登陆:</span><input type="text"style="">
+	</body>
+</html>
